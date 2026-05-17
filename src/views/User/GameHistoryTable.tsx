@@ -172,11 +172,12 @@ export function GameHistoryTable(props: GameHistoryProps) {
         ev: React.MouseEvent | React.TouchEvent | React.PointerEvent,
         rows: GroomedGame[],
     ) {
-        if (row.annulled) {
-            return;
-        }
-
         if (selectModeActive) {
+            // "Mass annullment" selection - only for non-annulled games.
+            if (row.annulled) {
+                return;
+            }
+
             if (ev.shiftKey) {
                 if (annulQueue.length > 0 && annulQueue[annulQueue.length - 1]) {
                     window.getSelection()?.removeAllRanges();
